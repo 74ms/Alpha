@@ -3,52 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Custom Territorial Client</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    #settingsPanel {
-      display: none;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      width: 350px;
-      background-color: #f9f9f9;
-    }
-    .input-group {
-      margin: 10px 0;
-      text-align: left;
-    }
-    .combined-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-    .combined-item input {
-      flex: 1;
-      padding: 5px;
-    }
-    button {
-      margin: 10px 5px;
-      padding: 8px 16px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- Main button to open settings -->
   <button id="openSettings">Click me</button>
 
-  <!-- Settings Panel -->
-  <div id="settingsPanel">
+  <!-- Settings Panel (hidden by default) -->
+  <div id="settingsPanel" style="display: none;">
     <h3>Settings</h3>
     <!-- Combined section: each row holds both AP and KB values -->
     <div class="input-group">
       <label>Combined Keybinds & Attack Percentage</label>
       <div id="combinedContainer">
-        <!-- Rows will be added here dynamically -->
+        <!-- Dynamic rows will be added here -->
       </div>
       <button id="addCombined">Add</button>
       <button id="removeCombined">Remove</button>
