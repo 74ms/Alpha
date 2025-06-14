@@ -1,4 +1,5 @@
-// When DOM is ready
+// client.js
+
 document.addEventListener("DOMContentLoaded", function () {
   const openSettingsButton = document.getElementById("openSettings");
   const closeSettingsButton = document.getElementById("closeSettings");
@@ -8,17 +9,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const addCombinedButton = document.getElementById("addCombined");
   const removeCombinedButton = document.getElementById("removeCombined");
 
-  // Open settings panel
+  // Open the settings panel
   openSettingsButton.addEventListener("click", () => {
     settingsPanel.style.display = "block";
   });
 
-  // Close settings panel
+  // Close the settings panel
   closeSettingsButton.addEventListener("click", () => {
     settingsPanel.style.display = "none";
   });
 
-  // Load previously saved combined keybinds, if any (stored as a JSON array of objects)
+  // Load previously saved combined keybinds if available
   if (localStorage.getItem("combinedKeybinds")) {
     try {
       const combinedKeybinds = JSON.parse(localStorage.getItem("combinedKeybinds"));
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Save settings function
+  // Save settings when the Save button is clicked
   saveSettingsButton.addEventListener("click", () => {
     const combinedItems = [];
     document.querySelectorAll(".combined-item").forEach(item => {
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     settingsPanel.style.display = "none";
   });
 
-  // Add a combined keybind row - limit to 10 rows
+  // Add a combined keybind row (limit to 10 rows)
   addCombinedButton.addEventListener("click", () => {
     const currentCount = document.querySelectorAll(".combined-item").length;
     if (currentCount >= 10) {
@@ -65,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Helper function to create and append a new row without an individual Delete button
+  // Helper function to create and append a new row (optionally with existing values)
   function addCombinedRow(existingAttack = "", existingKeybind = "") {
     const row = document.createElement("div");
     row.className = "combined-item";
