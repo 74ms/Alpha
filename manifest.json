@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Custom Territorial Client",
+  "version": "1.0",
+  "description": "Injects custom client modifications into territorial.io",
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://territorial.io/*"],
+      "js": ["client.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}
