@@ -4,23 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Custom Territorial Client</title>
+  
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css" />
-  <!-- (Optional) Include a manifest if you plan a PWA experience -->
+  
+  <!-- Manifest for PWA features -->
   <link rel="manifest" href="manifest.json" />
+  
+  <!-- Additional meta tags for SEO and PWA support -->
+  <meta name="description" content="A customized client for Territorial.io with enhanced UI for keybinds and attack percentage settings." />
+  <meta name="author" content="Your Name" />
 </head>
 <body>
-  <!-- Container for Territory's content loaded via reverse proxy -->
+  <!-- 
+    The territoryContainer is where your reverse proxy (if used) will inject Territorial.io's full HTML.
+    Alternatively, you can uncomment the iframe fallback if you choose to use it:
+    
+    <iframe id="territoryFrame" src="https://territorial.io" style="width:100%; height:100%; border:0;"></iframe>
+  -->
   <div id="territoryContainer">
-    <!-- The reverse proxy will inject Territorial.io’s full HTML here. -->
+    <!-- Reverse proxy injection goes here -->
   </div>
 
-  <!-- Your custom overlay UI -->
+  <!-- Custom overlay UI for KB + AP settings -->
   <div id="customOverlay">
     <button id="openSettings">Settings</button>
     <div id="settingsPanel" style="display: none;">
       <h3>KB + AP Settings</h3>
       <div class="input-group">
-        <label>Combined Keybinds &amp; Attack Percentage</label>
+        <label for="combinedContainer">Combined Keybinds &amp; Attack Percentage</label>
         <div id="combinedContainer"></div>
         <button id="addCombined">Add</button>
         <button id="removeCombined">Remove</button>
@@ -30,7 +42,7 @@
     </div>
   </div>
 
-  <!-- Your custom client logic -->
+  <!-- Client-side logic for initializing your custom UI and functionalities -->
   <script src="client.js"></script>
 </body>
 </html>
