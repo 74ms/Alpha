@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Custom Territorial Client</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
+  <!-- (Optional) Include a manifest if you plan a PWA experience -->
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-  <!-- Main button to open settings -->
-  <button id="openSettings">Click me</button>
-
-  <!-- Settings Panel (hidden by default) -->
-  <div id="settingsPanel" style="display: none;">
-    <h3>Settings</h3>
-    <!-- Combined section: each row holds both AP and KB values -->
-    <div class="input-group">
-      <label>Combined Keybinds & Attack Percentage</label>
-      <div id="combinedContainer">
-        <!-- Dynamic rows will be added here -->
-      </div>
-      <button id="addCombined">Add</button>
-      <button id="removeCombined">Remove</button>
-    </div>
-    <button id="saveSettings">Save</button>
-    <button id="closeSettings">Close</button>
+  <!-- Container for Territory's content loaded via reverse proxy -->
+  <div id="territoryContainer">
+    <!-- The reverse proxy will inject Territorial.io’s full HTML here. -->
   </div>
 
+  <!-- Your custom overlay UI -->
+  <div id="customOverlay">
+    <button id="openSettings">Settings</button>
+    <div id="settingsPanel" style="display: none;">
+      <h3>KB + AP Settings</h3>
+      <div class="input-group">
+        <label>Combined Keybinds &amp; Attack Percentage</label>
+        <div id="combinedContainer"></div>
+        <button id="addCombined">Add</button>
+        <button id="removeCombined">Remove</button>
+      </div>
+      <button id="saveSettings">Save</button>
+      <button id="closeSettings">Close</button>
+    </div>
+  </div>
+
+  <!-- Your custom client logic -->
   <script src="client.js"></script>
 </body>
 </html>
