@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Make sure Territory content fills the page */
 #territoryContainer {
   position: absolute;
@@ -10,21 +8,26 @@
   overflow: hidden;
 }
 
-/* Custom overlay styles */
-#customOverlay {
+/* Custom container for injected UI (created in client.js) */
+#customContainer {
   position: fixed;
   top: 10px;
   right: 10px;
   z-index: 10000;
   font-family: Arial, sans-serif;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
 }
 
-#customOverlay button {
+/* Style buttons inside the custom container */
+#customContainer button {
   padding: 5px 10px;
   margin: 2px;
   cursor: pointer;
 }
 
+/* Styling for the settings panel that might be contained within the custom UI */
 #settingsPanel {
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
@@ -33,11 +36,12 @@
   margin-top: 5px;
 }
 
-/* Styling for the combined rows, if needed */
+/* Styling for combined rows, if needed */
 .combined-item {
   display: flex;
   margin-top: 5px;
 }
+
 .combined-item input {
   margin-right: 5px;
   padding: 3px;
