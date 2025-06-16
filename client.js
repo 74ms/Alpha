@@ -6,6 +6,7 @@ if (!window.__ctcInitialized) {
   window.__ctcInitialized = true;
 
   (function initCTC() {
+    // Function to inject the UI if it's missing.
     function injectCTCUI() {
       if (!document.getElementById("ctc-container")) {
         console.warn("CTC: UI not found, injecting now");
@@ -30,30 +31,85 @@ if (!window.__ctcInitialized) {
           </div>
         `;
         document.body.appendChild(container);
+        attachCTCListeners();
+      }
+    }
 
-        // Attach listener to toggle settings
-        const btn = document.getElementById("ctc-button");
+    // Attach event listeners to the buttons inside your UI.
+    function attachCTCListeners() {
+      // Toggle settings panel when the main button is clicked.
+      const btn = document.getElementById("ctc-button");
+      if (btn) {
         btn.addEventListener("click", function () {
           const panel = document.getElementById("ctc-settingsPanel");
-          panel.style.display = (panel.style.display === "none" ? "block" : "none");
+          if (panel) {
+            panel.style.display = panel.style.display === "none" ? "block" : "none";
+          }
+        });
+      }
+      // "Close" button: hide the settings panel.
+      const closeBtn = document.getElementById("ctc-closeSettings");
+      if (closeBtn) {
+        closeBtn.addEventListener("click", function () {
+          const panel = document.getElementById("ctc-settingsPanel");
+          if (panel) {
+            panel.style.display = "none";
+          }
+        });
+      }
+      // "Add" button: append a new input element to the combined container.
+      const addBtn = document.getElementById("ctc-addCombined");
+      if (addBtn) {
+        addBtn.addEventListener("click", function () {
+          const combinedContainer = document.getElementById("ctc-combinedContainer");
+          if (combinedContainer) {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "New Key";
+            input.style.marginRight = "5px";
+            combinedContainer.appendChild(input);
+          }
+        });
+      }
+      // "Remove" button: remove the last input element from the combined container.
+      const removeBtn = document.getElementById("ctc-removeCombined");
+      if (removeBtn) {
+        removeBtn.addEventListener("click", function () {
+          const combinedContainer = document.getElementById("ctc-combinedContainer");
+          if (combinedContainer && combinedContainer.lastChild) {
+            combinedContainer.removeChild(combinedContainer.lastChild);
+          }
+        });
+      }
+      // "Save" button: demo function (logs a message, you can add more logic).
+      const saveBtn = document.getElementById("ctc-saveSettings");
+      if (saveBtn) {
+        saveBtn.addEventListener("click", function () {
+          console.log("CTC: Settings saved!");
+          alert("Settings saved (demo).");
         });
       }
     }
 
-    // Wait until the entire page is fully loaded, plus an extra delay.
+    // Function to inject the UI and attach listeners.
+    function initUI() {
+      injectCTCUI();
+    }
+
+    // Delay injection until the page is fully loaded and let Terrirotial.io do its stuff.
     if (document.readyState === "complete") {
-      setTimeout(injectCTCUI, 4000);
+      setTimeout(initUI, 4000);
     } else {
-      window.addEventListener("load", () => {
-        setTimeout(injectCTCUI, 4000);
+      window.addEventListener("load", function () {
+        setTimeout(initUI, 4000);
       });
     }
 
-    // Use MutationObserver to watch and re-inject if removed.
+    // MutationObserver: If the container is removed, re-inject.
     const observer = new MutationObserver(() => {
       if (!document.getElementById("ctc-container")) {
         console.warn("CTC: Container removed; reinjecting");
-        injectCTCUI();
+        initUI();
       }
     });
     observer.observe(document.body, { childList: true, subtree: true });
@@ -62,7 +118,7 @@ if (!window.__ctcInitialized) {
     setInterval(() => {
       if (!document.getElementById("ctc-container")) {
         console.warn("CTC: Interval check—container missing; reinjecting");
-        injectCTCUI();
+        initUI();
       }
     }, 2000);
   })();
