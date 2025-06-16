@@ -6,7 +6,7 @@ if (!window.__ctcInitialized) {
   window.__ctcInitialized = true;
 
   (function initCTC() {
-    // Function to inject the UI if it's missing.
+    // Function to inject our custom UI (namespaced)
     function injectCTCUI() {
       if (!document.getElementById("ctc-container")) {
         console.warn("CTC: UI not found, injecting now");
@@ -35,9 +35,9 @@ if (!window.__ctcInitialized) {
       }
     }
 
-    // Attach event listeners to the buttons inside your UI.
+    // Attach our event listeners to the injected UI elements.
     function attachCTCListeners() {
-      // Toggle settings panel when the main button is clicked.
+      // Toggle settings panel on the main button click.
       const btn = document.getElementById("ctc-button");
       if (btn) {
         btn.addEventListener("click", function () {
@@ -57,7 +57,7 @@ if (!window.__ctcInitialized) {
           }
         });
       }
-      // "Add" button: append a new input element to the combined container.
+      // "Add" button: append a new text input.
       const addBtn = document.getElementById("ctc-addCombined");
       if (addBtn) {
         addBtn.addEventListener("click", function () {
@@ -71,7 +71,7 @@ if (!window.__ctcInitialized) {
           }
         });
       }
-      // "Remove" button: remove the last input element from the combined container.
+      // "Remove" button: remove the last input.
       const removeBtn = document.getElementById("ctc-removeCombined");
       if (removeBtn) {
         removeBtn.addEventListener("click", function () {
@@ -81,7 +81,7 @@ if (!window.__ctcInitialized) {
           }
         });
       }
-      // "Save" button: demo function (logs a message, you can add more logic).
+      // "Save" button: basic demo functionality.
       const saveBtn = document.getElementById("ctc-saveSettings");
       if (saveBtn) {
         saveBtn.addEventListener("click", function () {
@@ -91,12 +91,26 @@ if (!window.__ctcInitialized) {
       }
     }
 
-    // Function to inject the UI and attach listeners.
-    function initUI() {
-      injectCTCUI();
+    // Function to check if game mode is active.
+    // In this example, we assume that if a <canvas> exists, it's game mode.
+    function checkGameMode() {
+      const container = document.getElementById("ctc-container");
+      if (!container) return;
+      if (document.querySelector("canvas")) {
+        // Hide UI in game mode.
+        container.style.display = "none";
+      } else {
+        // Show UI when not in game mode.
+        container.style.display = "block";
+      }
     }
 
-    // Delay injection until the page is fully loaded and let Terrirotial.io do its stuff.
+    // Initial injection of the UI after a delay to let Territorial.io finish loading.
+    function initUI() {
+      injectCTCUI();
+      checkGameMode(); // Check right away.
+    }
+
     if (document.readyState === "complete") {
       setTimeout(initUI, 4000);
     } else {
@@ -105,7 +119,7 @@ if (!window.__ctcInitialized) {
       });
     }
 
-    // MutationObserver: If the container is removed, re-inject.
+    // Monitor changes with MutationObserver to re-inject if removed.
     const observer = new MutationObserver(() => {
       if (!document.getElementById("ctc-container")) {
         console.warn("CTC: Container removed; reinjecting");
@@ -114,12 +128,13 @@ if (!window.__ctcInitialized) {
     });
     observer.observe(document.body, { childList: true, subtree: true });
 
-    // Also check every 2 seconds.
+    // Check every 2 seconds if the container exists; if not, re-inject.
     setInterval(() => {
       if (!document.getElementById("ctc-container")) {
         console.warn("CTC: Interval check—container missing; reinjecting");
         initUI();
       }
+      checkGameMode();
     }, 2000);
   })();
 }
