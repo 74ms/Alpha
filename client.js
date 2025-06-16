@@ -6,9 +6,7 @@ if (!window.__clientInitialized) {
   window.__clientInitialized = true;
 
   (function initClient() {
-
     function ensureUIElements() {
-      // If our custom UI container isn't already present, create it.
       if (!document.getElementById("customContainer")) {
         console.warn("client.js: Custom UI not found, creating it");
         const container = document.createElement("div");
@@ -31,22 +29,21 @@ if (!window.__clientInitialized) {
       }
     }
 
-    // Call ensureUIElements as soon as the DOM is ready
+    // Inject UI as soon as the DOM is ready
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", ensureUIElements);
     } else {
       ensureUIElements();
     }
 
-    // (Optional) Remove the fallback timeout if not needed
-    /* 
-    const fallbackTimeout = setTimeout(() => {
-      if (document.readyState === "loading") {
-        console.warn("client.js: DOMContentLoaded not fired");
+    // Set up a MutationObserver to re-inject the UI if it gets removed.
+    const observer = new MutationObserver((mutationsList) => {
+      if (!document.getElementById("customContainer")) {
+        console.warn("client.js: Custom UI was removed, re-injecting");
         ensureUIElements();
       }
-    }, 10000);
-    */
+    });
 
+    observer.observe(document.body, { childList: true, subtree: true });
   })();
 }
