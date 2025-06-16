@@ -1,15 +1,21 @@
 {
   "name": "territorial-proxy",
   "version": "1.0.0",
+  "description": "A reverse proxy that fetches Territorial.io and injects a custom UI for enhanced functionality.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "territorial.io",
+    "proxy",
+    "custom UI",
+    "reverse proxy",
+    "injection"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
   "dependencies": {
     "axios": "^1.10.0",
     "cheerio": "^1.1.0",
