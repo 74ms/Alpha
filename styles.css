@@ -1,31 +1,44 @@
-body {
+/* styles.css */
+
+/* Make sure Territory content fills the page */
+#territoryContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+/* Custom overlay styles */
+#customOverlay {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 10000;
   font-family: Arial, sans-serif;
-  text-align: center;
-  padding: 20px;
 }
+
+#customOverlay button {
+  padding: 5px 10px;
+  margin: 2px;
+  cursor: pointer;
+}
+
 #settingsPanel {
-  display: none;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  width: 350px;
-  background-color: #f9f9f9;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
 }
-.input-group {
-  margin: 10px 0;
-  text-align: left;
-}
+
+/* Styling for the combined rows, if needed */
 .combined-item {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  margin-top: 5px;
 }
 .combined-item input {
-  flex: 1;
-  padding: 5px;
-}
-button {
-  margin: 10px 5px;
-  padding: 8px 16px;
+  margin-right: 5px;
+  padding: 3px;
 }
